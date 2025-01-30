@@ -9,6 +9,8 @@ class CartDrawer extends HTMLElement {
 
   setHeaderCartIconAccessibility() {
     const cartLink = document.querySelector('#cart-icon-bubble');
+    if (!cartLink) return;
+
     cartLink.setAttribute('role', 'button');
     cartLink.setAttribute('aria-haspopup', 'dialog');
     cartLink.addEventListener('click', (event) => {
@@ -30,12 +32,6 @@ class CartDrawer extends HTMLElement {
     // here the animation doesn't seem to always get triggered. A timeout seem to help
     setTimeout(() => {
       this.classList.add('animate', 'active');
-          const cartDrawerItems = this.querySelector('cart-drawer-items');
-    if (cartDrawerItems) {
-      cartDrawerItems.updateCartUpsellToggleState();
-      cartDrawerItems.updateCartUpsellVisibility();
-    }
-
     });
 
     this.addEventListener(
@@ -82,6 +78,8 @@ class CartDrawer extends HTMLElement {
       const sectionElement = section.selector
         ? document.querySelector(section.selector)
         : document.getElementById(section.id);
+
+      if (!sectionElement) return;
       sectionElement.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.id], section.selector);
     });
 

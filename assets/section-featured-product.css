@@ -11,11 +11,6 @@
 
 .featured-product .product__media-item {
   padding-left: 0;
-  width: 100%;
-}
-
-.featured-product .product__media-item:not(:first-child) {
-  display: none;
 }
 
 .featured-product .placeholder-svg {
@@ -29,7 +24,7 @@
 }
 
 .featured-product .share-button:nth-last-child(2) {
-  display: inline-flex;    float: left;
+  display: inline-flex;
 }
 
 .share-button + .product__view-details {
@@ -52,6 +47,10 @@
 
   .background-secondary .featured-product {
     padding: 5rem;
+  }
+
+  .product--right .product__media-wrapper {
+    order: 2;
   }
 }
 

@@ -11,7 +11,7 @@
 }
 
 .accordion .summary__title + .icon-caret {
-  height: calc(var(--font-heading-scale) * 0.9rem);
+  height: calc(var(--font-heading-scale) * 0.6rem);
 }
 
 .accordion + .accordion {
@@ -32,14 +32,9 @@
   min-height: 1.6rem;
   margin: 0;
   word-break: break-word;
-  font-family: var(--font-collapsible-family);
-  font-weight: var(--font-collapsible-weight);
-  letter-spacing: var(--font-collapsible-spacing);
-  font-size: var(--font-collapsible-size);
-  font-style: var(--font-collapsible-style);
 }
 
-.accordion .icon-accordion {
+.accordion .svg-wrapper {
   align-self: center;
   fill: rgb(var(--color-foreground));
   height: calc(var(--font-heading-scale) * 2rem);

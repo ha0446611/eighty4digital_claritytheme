@@ -43,7 +43,7 @@
           <p class="announcement-bar__message h5">
             <span>{{ section.blocks.first.settings.text | escape }}</span>
             {%- if section.blocks.first.settings.link != blank -%}
-              {% render 'icon-arrow' %}
+              {{- 'icon-arrow.svg' | inline_asset_content -}}
             {%- endif -%}
           </p>
           {%- if section.blocks.first.settings.link != blank -%}
@@ -61,12 +61,14 @@
         <div class="announcement-bar-slider slider-buttons">
           <button
             type="button"
-            class="slider-button slider-button--prev{% if section.settings.hide_arrows %} visually-hidden{% endif %}"
+            class="slider-button slider-button--prev"
             name="previous"
             aria-label="{{ 'sections.announcements.previous_announcement' | t }}"
             aria-controls="Slider-{{ section.id }}"
           >
-            {% render 'icon-caret' %}
+            <span class="svg-wrapper">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
           </button>
           <div
             class="grid grid--1-col slider slider--everywhere"
@@ -102,7 +104,7 @@
                     <p class="announcement-bar__message h5">
                       <span>{{ block.settings.text | escape }}</span>
                       {%- if block.settings.link != blank -%}
-                        {% render 'icon-arrow' %}
+                        {{- 'icon-arrow.svg' | inline_asset_content -}}
                       {%- endif -%}
                     </p>
                     {%- if block.settings.link != blank -%}
@@ -115,51 +117,30 @@
           </div>
           <button
             type="button"
-            class="slider-button slider-button--next{% if section.settings.hide_arrows %} visually-hidden{% endif %}"
+            class="slider-button slider-button--next"
             name="next"
             aria-label="{{ 'sections.announcements.next_announcement' | t }}"
             aria-controls="Slider-{{ section.id }}"
           >
-            {% render 'icon-caret' %}
+            <span class="svg-wrapper">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
           </button>
         </div>
       </slideshow-component>
       {%- if request.design_mode -%}
         <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
+        <style>
+          /* theme editor power preview fix */
+          .announcement-bar-slider .slider__slide[aria-hidden='true'] {
+            visibility: hidden;
+          }
+        </style>
       {%- endif -%}
     {%- endif -%}
     <div class="localization-wrapper">
       {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
-        <noscript class="small-hide medium-hide">
-          {%- form 'localization', id: 'AnnouncementCountryMobileFormNoScript', class: 'localization-form' -%}
-            <div class="localization-form__select">
-              <h2 class="visually-hidden" id="AnnouncementCountryMobileLabelNoScript">
-                {{ 'localization.country_label' | t }}
-              </h2>
-              <select
-                class="localization-selector link"
-                name="country_code"
-                aria-labelledby="AnnouncementCountryMobileLabelNoScript"
-              >
-                {%- for country in localization.available_countries -%}
-                  <option
-                    value="{{ country.iso_code }}"
-                    {%- if country.iso_code == localization.country.iso_code %}
-                      selected
-                    {% endif %}
-                  >
-                    {{ country.name }} ({{ country.currency.iso_code }}
-                    {{ country.currency.symbol }})
-                  </option>
-                {%- endfor -%}
-              </select>
-              {% render 'icon-caret' %}
-            </div>
-            <button class="button button--tertiary">{{ 'localization.update_country' | t }}</button>
-          {%- endform -%}
-        </noscript>
-
-        <localization-form class="small-hide medium-hide no-js-hidden">
+        <localization-form class="small-hide medium-hide">
           {%- form 'localization', id: 'AnnouncementCountryForm', class: 'localization-form' -%}
             <div>
               <h2 class="visually-hidden" id="AnnouncementCountryLabel">{{ 'localization.country_label' | t }}</h2>
@@ -170,36 +151,7 @@
       {% endif %}
 
       {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
-        <noscript class="small-hide medium-hide">
-          {%- form 'localization', id: 'AnnouncementLanguageMobileFormNoScript', class: 'localization-form' -%}
-            <div class="localization-form__select">
-              <h2 class="visually-hidden" id="AnnouncementLanguageMobileLabelNoScript">
-                {{ 'localization.language_label' | t }}
-              </h2>
-              <select
-                class="localization-selector link"
-                name="locale_code"
-                aria-labelledby="AnnouncementLanguageMobileLabelNoScript"
-              >
-                {%- for language in localization.available_languages -%}
-                  <option
-                    value="{{ language.iso_code }}"
-                    lang="{{ language.iso_code }}"
-                    {%- if language.iso_code == localization.language.iso_code %}
-                      selected
-                    {% endif %}
-                  >
-                    {{ language.endonym_name | capitalize }}
-                  </option>
-                {%- endfor -%}
-              </select>
-              {% render 'icon-caret' %}
-            </div>
-            <button class="button button--tertiary">{{ 'localization.update_language' | t }}</button>
-          {%- endform -%}
-        </noscript>
-
-        <localization-form class="small-hide medium-hide no-js-hidden">
+        <localization-form class="small-hide medium-hide">
           {%- form 'localization', id: 'AnnouncementLanguageForm', class: 'localization-form' -%}
             <div>
               <h2 class="visually-hidden" id="AnnouncementLanguageLabel">{{ 'localization.language_label' | t }}</h2>
@@ -215,23 +167,17 @@
 {% schema %}
 {
   "name": "t:sections.announcement-bar.name",
-  "limit": 1,
-  "disabled_on": {
-    "groups": ["custom.popup", "footer"]
-   },
   "max_blocks": 12,
   "class": "announcement-bar-section",
-  
+  "enabled_on": {
+    "groups": ["header"]
+  },
   "settings": [
-    {
-      "type": "header",
-      "content": "Annoucement Bar Style"
-    },
     {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
-      "default": "accent-1"
+      "default": "scheme-4"
     },
     {
       "type": "checkbox",
@@ -258,12 +204,6 @@
       "type": "checkbox",
       "id": "auto_rotate",
       "label": "t:sections.announcement-bar.settings.auto_rotate.label",
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "hide_arrows",
-      "label": "Hide Arrows",
       "default": false
     },
     {
@@ -307,7 +247,7 @@
         {
           "type": "text",
           "id": "text",
-          "default": "Welcome to our store",
+          "default": "t:sections.announcement-bar.blocks.announcement.settings.text.default",
           "label": "t:sections.announcement-bar.blocks.announcement.settings.text.label"
         },
         {

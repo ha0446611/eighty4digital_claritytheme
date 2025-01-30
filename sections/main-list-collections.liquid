@@ -2,12 +2,7 @@
 {{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
 
 <div class="page-width">
-  <h1
-    class="title title--primary inline-richtext{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
-    {% if section.settings.title_center %}
-      style="text-align: center;"
-    {% endif %}
-  >
+  <h1 class="title title--primary inline-richtext{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
     {{ section.settings.title }}
   </h1>
   {%- liquid
@@ -33,25 +28,20 @@
       class="collection-list grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
       role="list"
     >
-      
-      {% assign hidden_collections = settings.hide_collections | downcase | replace: ' ', '-' | split: ',' %}
-      
-      {% for collection in collections %}
-        {% unless hidden_collections contains collection.handle %}
-          <li
-            class="collection-list__item grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-            {% if settings.animations_reveal_on_scroll %}
-              data-cascade
-              style="--animation-order: {{ forloop.index }};"
-            {% endif %}
-          >
-            {% render 'card-collection',
-              card_collection: collection,
-              media_aspect_ratio: section.settings.image_ratio,
-              columns: 3
-            %}
-          </li>
-        {% endunless %}
+      {%- for collection in collections -%}
+        <li
+          class="collection-list__item grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          {% if settings.animations_reveal_on_scroll %}
+            data-cascade
+            style="--animation-order: {{ forloop.index }};"
+          {% endif %}
+        >
+          {% render 'card-collection',
+            card_collection: collection,
+            media_aspect_ratio: section.settings.image_ratio,
+            columns: 3
+          %}
+        </li>
       {%- endfor -%}
     </ul>
     {% render 'pagination', paginate: paginate %}
@@ -66,13 +56,7 @@
       "type": "inline_richtext",
       "id": "title",
       "label": "t:sections.main-list-collections.settings.title.label",
-      "default": "Collections"
-    },
-    {
-      "type": "checkbox",
-      "id": "title_center",
-      "label": "Align to Center",
-      "default": false
+      "default": "t:sections.main-list-collections.settings.title.default"
     },
     {
       "type": "select",
@@ -131,18 +115,11 @@
       "type": "range",
       "id": "columns_desktop",
       "min": 1,
-      "max": 5,
+      "max": 6,
       "step": 1,
       "default": 3,
       "label": "t:sections.main-list-collections.settings.columns_desktop.label"
     },
-    {
-      "type": "checkbox",
-      "id": "subtitle_center",
-      "label": "Align to Center",
-      "default": false
-    },
-
     {
       "type": "header",
       "content": "t:sections.main-list-collections.settings.header_mobile.content"

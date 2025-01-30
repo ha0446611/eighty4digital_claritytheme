@@ -113,13 +113,11 @@ product-recommendations.is-accordion + .accordion {
 .complementary-products__container .card--horizontal .quick-add {
   margin: 0;
   max-width: 20rem;
-  margin-top: 0.5rem;
 }
 
 .complementary-products__container .quick-add__submit {
-  padding: 1rem 1.5rem;
+  padding: 1.5rem 0;
   min-height: inherit;
-  margin-top: 0.5rem;
 }
 
 .complementary-products__container .quick-add__submit .icon-plus {
@@ -155,12 +153,9 @@ product-recommendations.is-accordion + .accordion {
 .product--no-media .complementary-products__container .price {
   text-align: var(--text-alignment);
 }
-.complementary-products__container .price--on-sale .price-item--regular {
-    font-size: 1.3rem !important;
-  }
 
 @media screen and (min-width: 750px) {
   .complementary-products__container .price--on-sale .price-item--regular {
-    font-size: 1.3rem !important;
+    font-size: 1.3rem;
   }
 }

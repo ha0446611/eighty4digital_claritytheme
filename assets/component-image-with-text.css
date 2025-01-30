@@ -74,7 +74,7 @@
   fill: currentColor;
 }
 
-.image-with-text__media--placeholder:is(.animate--ambient, .animate--zoom-in) > svg {
+.image-with-text__media--placeholder:is(.animate--ambient, .animate--zoom-in) > .svg-wrapper {
   top: 0;
   left: 0;
   transform: translate(0);
@@ -141,7 +141,6 @@
   .image-with-text.collapse-corners:not(.image-with-text--overlap) .image-with-text__media-item:after,
   .image-with-text.collapse-corners:not(.image-with-text--overlap) .grid__item .image-with-text__media,
   .image-with-text.collapse-corners:not(.image-with-text--overlap) .image-with-text__media img,
-  .image-with-text.collapse-corners:not(.image-with-text--overlap) .image-with-text__media video,
   .image-with-text.collapse-corners:not(.image-with-text--overlap) .image-with-text__media .placeholder-svg {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
@@ -170,7 +169,7 @@
 
 .image-with-text--overlap .image-with-text__content {
   width: 90%;
-  margin: var(--grid-desktop-horizontal-spacing) auto 0;
+  margin: -3rem auto 0;
 }
 
 @media screen and (min-width: 750px) {
@@ -205,20 +204,20 @@
 
   .image-with-text--overlap .image-with-text__text-item {
     display: flex;
-    padding: 0rem 0;
+    padding: 3rem 0;
   }
 
   .image-with-text--overlap .image-with-text__content {
     height: auto;
-    width: calc(100% + var(--grid-desktop-horizontal-spacing););
-    min-width: calc(100% + var(--grid-desktop-horizontal-spacing););
+    width: calc(100% + 4rem);
+    min-width: calc(100% + 4rem);
     margin-top: 0;
-    margin-left:  var(--grid-desktop-horizontal-spacing);
+    margin-left: -4rem;
   }
 
   .image-with-text--overlap .image-with-text__grid--reverse .image-with-text__content {
     margin-left: 0;
-    margin-right: var(--grid-desktop-horizontal-spacing);;
+    margin-right: -4rem;
   }
 
   .image-with-text--overlap .image-with-text__grid--reverse .image-with-text__text-item {
@@ -255,10 +254,6 @@
   .image-with-text.collapse-corners:not(.image-with-text--overlap)
     .grid:not(.image-with-text__grid--reverse)
     .image-with-text__media
-    video,
-  .image-with-text.collapse-corners:not(.image-with-text--overlap)
-    .grid:not(.image-with-text__grid--reverse)
-    .image-with-text__media
     .placeholder-svg,
   .image-with-text.collapse-corners:not(.image-with-text--overlap)
     .image-with-text__grid--reverse
@@ -292,10 +287,6 @@
     .image-with-text__grid--reverse
     .image-with-text__media
     img,
-  .image-with-text.collapse-corners:not(.image-with-text--overlap)
-    .image-with-text__grid--reverse
-    .image-with-text__media
-    video,
   .image-with-text.collapse-corners:not(.image-with-text--overlap)
     .image-with-text__grid--reverse
     .image-with-text__media

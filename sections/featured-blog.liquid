@@ -27,11 +27,10 @@
 <div class="blog color-{{ section.settings.color_scheme }} gradient{% if section.settings.heading == blank %} no-heading{% endif %}">
   <div class="page-width-desktop isolate{% if posts_displayed < 3 %} page-width-tablet{% endif %} section-{{ section.id }}-padding">
     {%- unless section.settings.heading == blank -%}
-      <div class="title-wrapper-with-link{% if posts_displayed > 2 %} title-wrapper--self-padded-tablet-down{% else %} title-wrapper--self-padded-mobile{% endif %} title-wrapper--no-top-margin"
-           style="justify-content: {{ section.settings.collection_text_alignment }};">
+      <div class="title-wrapper-with-link{% if posts_displayed > 2 %} title-wrapper--self-padded-tablet-down{% else %} title-wrapper--self-padded-mobile{% endif %} title-wrapper--no-top-margin">
         <h2
           id="SectionHeading-{{ section.id }}"
-          class="blog__title inline-richtext {{ section.settings.heading_size }} {{ section.settings.collection_text_alignment }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+          class="blog__title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
           {% if settings.animations_reveal_on_scroll %}
             data-cascade
           {% endif %}
@@ -83,7 +82,7 @@
         {%- else -%}
           {% for i in (1..section.settings.post_limit) -%}
             {%- assign placeholder_image_index = forloop.index0 | modulo: 3 | plus: 1 -%}
-            {%- assign placeholder_image = 'collection-' | append: placeholder_image_index -%}
+            {%- assign placeholder_image = 'blog-apparel-' | append: placeholder_image_index -%}
             <li
               id="Slide-{{ section.id }}-{{ forloop.index }}"
               class="blog__post grid__item article slider__slide slider__slide--full-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
@@ -140,14 +139,16 @@
         {%- endif -%}
       </ul>
       {%- if posts_exceed_limit -%}
-        <div class="slider-buttons no-js-hidden large-up-hide{% unless section.settings.navigation_show %} hidden{% endunless %}{% if section.settings.post_limit < 3 %} medium-hide{% endif %}{% if section.settings.post_limit < 2 %} small-hide{% endif %}">
+        <div class="slider-buttons{% if section.settings.post_limit < 3 %} medium-hide{% endif %}{% if section.settings.post_limit < 2 %} small-hide{% endif %}">
           <button
             type="button"
             class="slider-button slider-button--prev"
             name="previous"
             aria-label="{{ 'general.slider.previous_slide' | t }}"
           >
-            {% render 'icon-caret' %}
+            <span class="svg-wrapper">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
           </button>
           <div class="slider-counter caption">
             <span class="slider-counter--current">1</span>
@@ -161,7 +162,9 @@
             name="next"
             aria-label="{{ 'general.slider.next_slide' | t }}"
           >
-            {% render 'icon-caret' %}
+            <span class="svg-wrapper">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
           </button>
         </div>
       {%- endif -%}
@@ -192,13 +195,13 @@
   "name": "t:sections.featured-blog.name",
   "tag": "section",
   "disabled_on": {
-  "groups": ["header", "footer", "custom.popup"]
-   },
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "inline_richtext",
       "id": "heading",
-      "default": "Blog posts",
+      "default": "t:sections.featured-blog.settings.heading.default",
       "label": "t:sections.featured-blog.settings.heading.label"
     },
     {
@@ -216,31 +219,19 @@
         {
           "value": "h0",
           "label": "t:sections.all.heading_size.options__3.label"
+        },
+        {
+          "value": "hxl",
+          "label": "t:sections.all.heading_size.options__4.label"
+        },
+        {
+          "value": "hxxl",
+          "label": "t:sections.all.heading_size.options__5.label"
         }
       ],
       "default": "h1",
       "label": "t:sections.all.heading_size.label"
     },
-    {
-        "type": "select",
-        "id": "collection_text_alignment",
-        "options": [
-          {
-            "value": "left",
-            "label": "t:settings_schema.global.settings.text_alignment.options__1.label"
-          },
-          {
-            "value": "center",
-            "label": "t:settings_schema.global.settings.text_alignment.options__2.label"
-          },
-          {
-            "value": "right",
-            "label": "t:settings_schema.global.settings.text_alignment.options__3.label"
-          }
-        ],
-        "default": "left",
-        "label": "t:settings_schema.global.settings.text_alignment.label"
-      },
     {
       "type": "blog",
       "id": "blog",
@@ -250,7 +241,7 @@
       "type": "range",
       "id": "post_limit",
       "min": 2,
-      "max": 40,
+      "max": 4,
       "step": 1,
       "default": 3,
       "label": "t:sections.featured-blog.settings.post_limit.label"
@@ -265,17 +256,11 @@
       "label": "t:sections.featured-blog.settings.columns_desktop.label"
     },
     {
-      "type": "checkbox",
-      "id": "navigation_show",
-      "default": false,
-      "label": "Show Navigation number on mobile"
-    },
-    {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "info": "t:sections.all.colors.has_cards_info",
-      "default": "background-1"
+      "default": "scheme-1"
     },
     {
       "type": "checkbox",
