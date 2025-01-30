@@ -16,6 +16,8 @@
     "cart_drawer_collection": "",
     "cart_color_scheme": "scheme-1",
     "collection": "frontpage",
+    "enable_cart_upsell": true,
+    "cart_upsell_product_2": "test-product-copy",
     "logo_width": 90,
     "type_header_font": "assistant_n4",
     "heading_scale": 100,
